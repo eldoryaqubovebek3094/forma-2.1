@@ -1,0 +1,8 @@
+[build]
+  command = "node server.js"
+  publish = "public"
+
+[[redirects]]
+  from = "/api/*"
+  to = "http://localhost:5000/:splat"
+  status = 200

@@ -92,7 +92,7 @@ const removeHiddenn = () => {
 
 async function sendFormData(formData) {
   try {
-    const response = await fetch("http://localhost:3000/contact", {
+    const response = await fetch("http://localhost:5000/contact", {
       method: "POST",
       body: formData,
       

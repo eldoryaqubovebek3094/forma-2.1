@@ -4,12 +4,10 @@ const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-
 
 // Set up Multer for handling file uploads
 const storage = multer.diskStorage({
@@ -30,14 +28,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-app.use(cors({ origin: 'http://127.0.0.1:5500' }));
-
-// CORS middleware
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5500');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  next();
-});
+app.use(cors());
 
 // Serve static files from the 'public' directory
 const publicDir = path.join(__dirname, 'public');
