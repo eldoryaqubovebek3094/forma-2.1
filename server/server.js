@@ -8,7 +8,7 @@ const port = process.env.PORT || 5000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use(cors({ origin: ['http://localhost:5500', 'http://webmas.uz'] }));
 // Set up Multer for handling file uploads
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {

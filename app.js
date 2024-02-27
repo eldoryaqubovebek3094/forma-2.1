@@ -42,7 +42,21 @@ const imageInput = document.getElementById("image");
 const errorElement = document.getElementById("error");
 const successElement = document.getElementById("success");
 
-form.addEventListener("submit", (e) => {
+
+async function checkImageExists(imageName) {
+  try {
+    const response = await fetch(`https://webmas.uz/server/rasmlar/${imageName}`);
+    if (!response.ok) {
+      throw new Error('Image does not exist');
+    }
+    return true;
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
+}
+
+form.addEventListener("submit", async (e) => {
   e.preventDefault();
   const name = nameInput.value;
   const email = emailInput.value;
@@ -50,8 +64,6 @@ form.addEventListener("submit", (e) => {
   const phoneNumber = phoneNumberInput.value;
   const amount = amountInput.value;
   const image = imageInput.files[0];
-  console.log(image);
-  // console.log(image)
 
   if (
     name.trim() === "" ||
@@ -70,6 +82,12 @@ form.addEventListener("submit", (e) => {
     return;
   }
 
+  const imageExists = await checkImageExists(image.name);
+  if (imageExists) {
+    displayErrorMessage("Boshqa rasm yuboring, bu rasm allaqachon bazada bor");
+    return;
+  }
+
   const formData = new FormData();
   formData.append("name", name);
   formData.append("email", email);
@@ -77,12 +95,13 @@ form.addEventListener("submit", (e) => {
   formData.append("phoneNumber", phoneNumber);
   formData.append("amount", amount);
   formData.append("image", image);
-  
+
   sendFormData(formData).then(() => {
     alert("MA'LUMOTLAR YUBORILDI");
     location.reload();
   });
 });
+
 
 function displayErrorMessage(message) {
   errorElement.innerText = message;
