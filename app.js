@@ -2,7 +2,10 @@ const showBtn = document.querySelector("#show-btn");
 const modal = document.querySelector("#modal");
 const closeBtn = document.querySelector("#close-btn");
 const overlay = document.querySelector("#overlay");
-
+function displaySuccessMessage(message) {
+  successElement.innerText = message;
+  successElement.classList.add("show");
+}
 //add classlist hidden
 const addHidden = () => {
   modal.classList.add("hidden");
@@ -47,7 +50,7 @@ form.addEventListener("submit", (e) => {
   const phoneNumber = phoneNumberInput.value;
   const amount = amountInput.value;
   const image = imageInput.files[0];
-
+  console.log(image);
   // console.log(image)
 
   if (
@@ -74,8 +77,11 @@ form.addEventListener("submit", (e) => {
   formData.append("phoneNumber", phoneNumber);
   formData.append("amount", amount);
   formData.append("image", image);
-
-  sendFormData(formData);
+  
+  sendFormData(formData).then(() => {
+    alert("MA'LUMOTLAR YUBORILDI");
+    location.reload();
+  });
 });
 
 function displayErrorMessage(message) {
@@ -89,14 +95,14 @@ const removeHiddenn = () => {
 
 async function sendFormData(formData) {
   try {
-    const response = await fetch("http://localhost:5000/contact", {
+    const response = await fetch("https://webmas.uz/contact", {
       method: "POST",
       body: formData,
     });
     console.log(response.status);
     if (response.status === 500) {
+      alert("Jo'natildi");
       displaySuccessMessage("Xabaringiz jo'natildi");
-      removeHiddenn();
       // Kerakli qismlarni yangilash
     } else {
       throw new Error("Network response was not ok");
@@ -106,9 +112,4 @@ async function sendFormData(formData) {
     displayErrorMessage("Xatolik yuz berdi");
     // Xatoni boshqarish
   }
-}
-
-function displaySuccessMessage(message) {
-  successElement.innerText = message;
-  successElement.classList.add("show");
 }

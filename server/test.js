@@ -4,7 +4,7 @@ const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
 const app = express();
-const port = 5000;
+const port = 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -30,14 +30,10 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-app.use(cors({ origin: 'http://127.0.0.1:5500' }));
+app.use(cors({ origin: '*' }));
 
 // CORS middleware
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5500');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  next();
-});
+
 
 // Serve static files from the 'public' directory
 const publicDir = path.join(__dirname, 'public');
@@ -47,6 +43,14 @@ fs.mkdir(publicDir, { recursive: true }, (err) => {
   }
 });
 app.use(express.static(publicDir));
+app.get('/',(req,res) => {
+  console.log('alllll')
+})
+
+app.get('/getAllUsers', (req, res)=>{
+
+  res.send('okeeeee')
+})
 
 // Handle form submission
 app.post('/contact', upload.single('image'), (req, res) => {
@@ -103,3 +107,4 @@ app.post('/contact', upload.single('image'), (req, res) => {
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
+

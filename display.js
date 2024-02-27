@@ -16,7 +16,7 @@ function populateTable(data) {
   var totalAmount = 0;
 
   data.forEach(function (item) {
-    var imageHtml = `<td><a href="/server/rasmlar/${item.image}"><img src="/server/rasmlar/${item.image}" alt="Image"></a></td>`;
+    var imageHtml = `<td><a href="https://webmas.uz/server/rasmlar/${item.image}"><img src="https://webmas.uz/server/rasmlar/${item.image}" alt="Image"></a></td>`;
     var rowHtml = `<tr>
       <td>${item.name}</td>
       <td>${item.email}</td>
@@ -56,17 +56,19 @@ function filterTable() {
 }
 
 // Fetch JSON data and populate the table
-fetch("/server/data.json")
-  .then(function (response) {
-    return response.json();
-  })
-  .then(function (data) {
+
+async function fetchData() {
+  try {
+    const response = await fetch("https://webmas.uz/server/data.json");
+    const data = await response.json();
     originalData = data;
     populateTable(originalData);
-  })
-  .catch(function (error) {
+  } catch (error) {
     console.error(error);
-  });
+  }
+}
+
+fetchData();
 
 // Add event listener to the filter button
 var filterButton = document.querySelector("#filter-button");
