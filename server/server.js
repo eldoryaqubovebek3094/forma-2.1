@@ -44,7 +44,6 @@ app.use(express.static(publicDir));
 // Handle form submission
 app.post('/contact', upload.single('image'), (req, res) => {
   const name = req.body.name;
-  const email = req.body.email;
   const message = req.body.message;
   const phoneNumber = req.body.phoneNumber;
   const amount = req.body.amount;
@@ -125,56 +124,6 @@ app.post('/contact', upload.single('image'), (req, res) => {
   });
 });
 
-// Handle form submission
-// app.post('/contact', upload.single('image'), (req, res) => {
-//   const name = req.body.name;
-//   const email = req.body.email;
-//   const message = req.body.message;
-//   const phoneNumber = req.body.phoneNumber;
-//   const amount = req.body.amount;
-//   const image = req.file;
-
-//   // Create an object with the form data
-//   const formData = {
-//     name,
-//     email,
-//     message,
-//     phoneNumber,
-//     amount,
-//     image: image ? image.filename : null
-//   };
-
-//   // Read the existing data from data.json file
-//   fs.readFile('data.json', 'utf8', (err, data) => {
-//     if (err) {
-//       console.log(err);
-//       return res.sendStatus(500);
-//     }
-
-//     try {
-//       const jsonData = JSON.parse(data);
-
-//       // Check if the uploaded image has the same name as an existing image
-//       const existingImage = jsonData.find(item => item.image === formData.image);
-//       if (existingImage) {
-//         return res.status(400).send('Bu nomdagi rasm avval yuklangan. Boshqa rasm yuklash uchun boshqa nom kiriting.');
-//       }
-
-//       // Write the form data to data.json file
-//       jsonData.push(formData);
-//       fs.writeFile('data.json', JSON.stringify(jsonData), (err) => {
-//         if (err) {
-//           console.log(err);
-//           return res.sendStatus(500);
-//         }
-//         res.sendStatus(200);
-//       });
-//     } catch (error) {
-//       console.log(error);
-//       res.sendStatus(500);
-//     }
-//   });
-// });
 
 // Start the server
 app.listen(port, () => {
