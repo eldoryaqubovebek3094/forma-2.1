@@ -16,12 +16,12 @@ function populateTable(data) {
   var totalAmount = 0;
 
   data.forEach(function (item) {
-    var imageHtml = `<td><a href="https://webmas.uz/server/rasmlar/${item.image}"><img src="https://webmas.uz/server/rasmlar/${item.image}" alt="Image"></a></td>`;
+    var imageHtml = `<td><a href="/server/rasmlar/${item.image}"><img src="/server/rasmlar/${item.image}" alt="Image"></a></td>`;
     var rowHtml = `<tr>
       <td>${item.name}</td>
-      <td>${item.email}</td>
       <td>${item.message}</td>
       <td>${item.phoneNumber}</td>
+      <td>${item.timestamp}</td>
       <td>${item.amount}</td>
       ${imageHtml}
     </tr>`;
@@ -59,7 +59,7 @@ function filterTable() {
 
 async function fetchData() {
   try {
-    const response = await fetch("https://webmas.uz/server/data.json");
+    const response = await fetch("/server/data.json");
     const data = await response.json();
     originalData = data;
     populateTable(originalData);

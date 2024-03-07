@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- style -->
     <link rel="stylesheet" href="./style/style.css" />
-
+    <link rel="stylesheet" href="">
     <!-- script -->
     <title>Ma'lumotlarni kiritish</title>
     <!-- font -->
@@ -18,14 +18,21 @@
     />
   </head>
   <body>
-    <div class="wrapper">
+   
+    <div class="wrapper"> <header class="container my-5 text-center">
+      <h4 id="full-day">Day Month, Year</h4>
+      <div class="time-container">
+        <span id="hour">Hh</span>
+        :
+        <span id="minute">Mm</span>
+        :
+        <span id="second">Ss</span>
+      </div>
+    </header>
       <h1 style="color: rgb(231, 231, 231)">Ma'lumotlarni kiriting</h1>
       <form id="form">
         <label for="name">Ismingiz: ➡</label>
         <input type="text" id="name" required /><br />
-
-        <label for="email">Pochta manzil: ➡</label>
-        <input type="email" id="email" required /><br />
 
         <label for="message">Izoh qoldiring: ➡</label>
         <textarea id="message" required></textarea><br />
@@ -67,9 +74,9 @@
           <thead>
             <tr>
               <th>Ismi Familiya</th>
-              <th>Pochta manzili</th>
               <th>Izohlar</th>
               <th>Telefon raqami</th>
+              <th>Sana/Vaqt</th>
               <th>Pul Miqdori</th>
               <th>Rasmi</th>
             </tr>

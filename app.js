@@ -34,7 +34,6 @@ document.addEventListener("keydown", (e) => {
 
 const form = document.getElementById("form");
 const nameInput = document.getElementById("name");
-const emailInput = document.getElementById("email");
 const messageInput = document.getElementById("message");
 const phoneNumberInput = document.getElementById("phoneNumber");
 const amountInput = document.getElementById("amount");
@@ -42,12 +41,13 @@ const imageInput = document.getElementById("image");
 const errorElement = document.getElementById("error");
 const successElement = document.getElementById("success");
 
-
 async function checkImageExists(imageName) {
   try {
-    const response = await fetch(`https://webmas.uz/server/rasmlar/${imageName}`);
+    const response = await fetch(
+      `/server/rasmlar/${imageName}`
+    );
     if (!response.ok) {
-      throw new Error('Image does not exist');
+      throw new Error("Image does not exist");
     }
     return true;
   } catch (error) {
@@ -56,10 +56,12 @@ async function checkImageExists(imageName) {
   }
 }
 
+//timeout
+
+
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
   const name = nameInput.value;
-  const email = emailInput.value;
   const message = messageInput.value;
   const phoneNumber = phoneNumberInput.value;
   const amount = amountInput.value;
@@ -67,7 +69,6 @@ form.addEventListener("submit", async (e) => {
 
   if (
     name.trim() === "" ||
-    email.trim() === "" ||
     message.trim() === "" ||
     phoneNumber.trim() === "" ||
     amount.trim() === ""
@@ -75,22 +76,19 @@ form.addEventListener("submit", async (e) => {
     displayErrorMessage("Iltimos, barcha maydonlarni toʻldiring");
     return;
   }
-
+  const imageExists = await checkImageExists(image.name);
+  if (imageExists) {
+    displayErrorMessage("Boshqa rasm yuboring, bu rasm allaqachon bazada bor");
+    return;
+  }
   if (message.length > 15) {
     displayErrorMessage("Izoh 15 belgidan oshmasligi kerak");
     removeHiddenn();
     return;
   }
 
-  const imageExists = await checkImageExists(image.name);
-  if (imageExists) {
-    displayErrorMessage("Boshqa rasm yuboring, bu rasm allaqachon bazada bor");
-    return;
-  }
-
   const formData = new FormData();
   formData.append("name", name);
-  formData.append("email", email);
   formData.append("message", message);
   formData.append("phoneNumber", phoneNumber);
   formData.append("amount", amount);
@@ -101,7 +99,6 @@ form.addEventListener("submit", async (e) => {
     location.reload();
   });
 });
-
 
 function displayErrorMessage(message) {
   errorElement.innerText = message;
@@ -114,7 +111,7 @@ const removeHiddenn = () => {
 
 async function sendFormData(formData) {
   try {
-    const response = await fetch("https://webmas.uz/contact", {
+    const response = await fetch("http://localhost:5000/contact", {
       method: "POST",
       body: formData,
     });
@@ -132,3 +129,57 @@ async function sendFormData(formData) {
     // Xatoni boshqarish
   }
 }
+
+
+//full time elements
+const fullDay = document.getElementById("full-day");
+const hourEl = document.getElementById("hour");
+const minuteEl = document.getElementById("minute");
+const secondEl = document.getElementById("second");
+
+
+//function time-vaqt funksiyasi
+
+function getTime() {
+  //yil oy kun
+  const now = new Date();
+  const date = now.getDate() < 10 ? "0" + now.getDate() : now.getDate();
+  const month =
+    now.getMonth() < 10 ? "0" + (now.getMonth() + 1) : now.getMonth();
+  const year = now.getFullYear();
+
+  //soat minut sekund
+  const hour = now.getHours() < 10 ? "0" + now.getHours() : now.getHours();
+  const minute =
+    now.getMinutes() < 10 ? "0" + now.getMinutes() : now.getMinutes();
+  const second =
+    now.getSeconds() < 10 ? "0" + now.getSeconds() : now.getSeconds();
+
+  const months = [
+    "Yanvar",
+    "Fevral",
+    "Mart",
+    "Aprel",
+    "May",
+    "Iyun",
+    "Iyul",
+    "Avgust",
+    "Sentyabr",
+    "Oktyabr",
+    "Noyabr",
+    "Dekabr",
+  ];
+
+  const month_title = now.getMonth();
+  //sanalarni chiqarish
+  fullDay.textContent = `${date} ${months[month_title]}, ${year} yil`;
+  //vaqtni chiqarish
+  hourEl.textContent = hour;
+  minuteEl.textContent = minute;
+  secondEl.textContent = second;
+  //return qilamiz
+  return `${hour}:${minute}:${second}, ${date}.${month}.${year}`;
+}
+
+setInterval(getTime, 1000);
+
