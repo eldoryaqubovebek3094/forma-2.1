@@ -12,7 +12,7 @@
   /* Fondo stil sozlamalari */
   body {
     background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)),
-      url(..//img/tg.jpeg);
+      url(..//img/rasm.png);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -186,4 +186,30 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(5px);
+  }
+
+  .time-container{
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     margin-bottom: 15px;
+     width: 100%;
+     padding: 10px 20px;
+     font-size: 16px;
+     background-color: #4caf50;
+     color: #fff;
+     border: none;
+     border-radius: 4px;
+     cursor: pointer;
+  }
+
+  #full-day{
+    width: 100%;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
   }

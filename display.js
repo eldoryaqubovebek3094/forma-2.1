@@ -44,9 +44,9 @@ function filterTable() {
   filteredData = originalData.filter(function (item) {
     return (
       item.name.toLowerCase().includes(keyword) ||
-      item.email.toLowerCase().includes(keyword) ||
       item.message.toLowerCase().includes(keyword) ||
       item.phoneNumber.toLowerCase().includes(keyword) ||
+      item.timestamp.toLowerCase().includes(keyword) ||
       item.amount.toString().includes(keyword) ||
       item.image.toLowerCase().includes(keyword)
     );

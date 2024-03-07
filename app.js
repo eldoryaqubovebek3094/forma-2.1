@@ -57,7 +57,14 @@ async function checkImageExists(imageName) {
 }
 
 //timeout
+function displayErrorMessage(message) {
+  errorElement.innerText = message;
+  errorElement.classList.add("show");
+}
 
+const removeHiddenn = () => {
+  errorElement.classList.remove("hidden");
+};
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -78,11 +85,19 @@ form.addEventListener("submit", async (e) => {
   }
   const imageExists = await checkImageExists(image.name);
   if (imageExists) {
+    
     displayErrorMessage("Boshqa rasm yuboring, bu rasm allaqachon bazada bor");
+    setTimeout(()=>{
+      displayErrorMessage('')
+    },2500)
+    removeHiddenn();
     return;
   }
   if (message.length > 15) {
     displayErrorMessage("Izoh 15 belgidan oshmasligi kerak");
+    setTimeout(()=>{
+      displayErrorMessage('')
+    },2500)
     removeHiddenn();
     return;
   }
@@ -100,14 +115,7 @@ form.addEventListener("submit", async (e) => {
   });
 });
 
-function displayErrorMessage(message) {
-  errorElement.innerText = message;
-  errorElement.classList.add("show");
-}
 
-const removeHiddenn = () => {
-  errorElement.classList.remove("hidden");
-};
 
 async function sendFormData(formData) {
   try {

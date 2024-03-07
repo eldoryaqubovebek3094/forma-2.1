@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- style -->
     <link rel="stylesheet" href="./style/style.css" />
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="" />
     <!-- script -->
     <title>Ma'lumotlarni kiritish</title>
     <!-- font -->
@@ -18,18 +18,20 @@
     />
   </head>
   <body>
-   
-    <div class="wrapper"> <header class="container my-5 text-center">
-      <h4 id="full-day">Day Month, Year</h4>
-      <div class="time-container">
-        <span id="hour">Hh</span>
-        :
-        <span id="minute">Mm</span>
-        :
-        <span id="second">Ss</span>
-      </div>
-    </header>
+    <div class="wrapper">
+      <header class="container my-5 text-center">
+        <h4 id="full-day">Day Month, Year</h4>
+        <div class="time-container">
+          <span id="hour">Hh</span>
+          :
+          <span id="minute">Mm</span>
+          :
+          <span id="second">Ss</span>
+        </div>
+      </header>
       <h1 style="color: rgb(231, 231, 231)">Ma'lumotlarni kiriting</h1>
+      <div class="hidden" id="error"></div>
+      <div class="hidden" id="success"></div>
       <form id="form">
         <label for="name">Ismingiz: ➡</label>
         <input type="text" id="name" required /><br />
@@ -50,14 +52,12 @@
           Yuborish
         </button>
       </form>
-      <div class="hidden" id="error"></div>
-      <div class="hidden" id="success"></div>
-      <button class="btn show-btn" id="show-btn">Ma'lumotlarni ko'rish </button>
-     
+
+      <button class="btn show-btn" id="show-btn">Ma'lumotlarni ko'rish</button>
     </div>
 
-     <!-- Modal -->
-     <div class="modal hidden" id="modal">
+    <!-- Modal -->
+    <div class="modal hidden" id="modal">
       <!-- modal header -->
       <div class="modal-header">
         <h5>✅</h5>
