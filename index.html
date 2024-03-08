@@ -29,31 +29,47 @@
           <span id="second">Ss</span>
         </div>
       </header>
-      <h1 style="color: rgb(231, 231, 231)">Ma'lumotlarni kiriting</h1>
+      <button class="btn show-btn" id="show-btn">Ro'yxat ko'rish</button>
       <div class="hidden" id="error"></div>
       <div class="hidden" id="success"></div>
       <form id="form">
-        <label for="name">Ismingiz: ➡</label>
+        <label for="name">Ism va Familiya: </label>
         <input type="text" id="name" required /><br />
 
-        <label for="message">Izoh qoldiring: ➡</label>
+        <label for="message">Izoh qoldiring: </label>
         <textarea id="message" required></textarea><br />
 
-        <label for="phoneNumber">Telefon raqam: ➡</label>
+        <label for="phoneNumber">Telefon raqam: </label>
         <input type="tel" id="phoneNumber" required /><br />
 
-        <label for="amount">Pul miqdori: ➡</label>
+        <label for="amount">Pul miqdori: </label>
         <input type="number" id="amount" required /><br />
 
-        <label for="image">Rasm Yuklash: ➡</label>
+        <label for="image">Rasm Yuklash: </label>
         <input type="file" id="image" accept="image/*" required /><br />
 
-        <button class="btn show-btn" type="submit" id="uploadButton">
-          Yuborish
+        <button type="submit" class="button">
+          <span class="button__text">qo'shish</span>
+          <span class="button__icon"
+            ><svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke-linejoin="round"
+              stroke-linecap="round"
+              stroke="currentColor"
+              height="24"
+              fill="none"
+              class="svg"
+            >
+              <line y2="19" y1="5" x2="12" x1="12"></line>
+              <line y2="12" y1="12" x2="19" x1="5"></line></svg
+          ></span>
         </button>
       </form>
 
-      <button class="btn show-btn" id="show-btn">Ma'lumotlarni ko'rish</button>
+      
     </div>
 
     <!-- Modal -->
@@ -69,7 +85,7 @@
       <div class="modal-body">
         <h1>Ma'lumotlar jadvali</h1>
         <input type="text" id="filter-input" placeholder="Izlash..." />
-        <button type="submit" id="filter-button">Qidiruv</button>
+        <button class="button" type="submit" id="filter-button">Qidiruv</button>
         <table id="data-table">
           <thead>
             <tr>
