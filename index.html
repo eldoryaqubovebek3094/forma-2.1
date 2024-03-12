@@ -19,7 +19,9 @@
   </head>
   <body>
     <div class="wrapper">
-      <header class="container my-5 text-center">
+      <div id="container"></div>
+
+      <header class="my-5 text-center">
         <h4 id="full-day">Day Month, Year</h4>
         <div class="time-container">
           <span id="hour">Hh</span>
@@ -29,7 +31,7 @@
           <span id="second">Ss</span>
         </div>
       </header>
-      <button class="btn show-btn" id="show-btn">Ro'yxat ko'rish</button>
+
       <div class="hidden" id="error"></div>
       <div class="hidden" id="success"></div>
       <form id="form">
@@ -68,15 +70,21 @@
           ></span>
         </button>
       </form>
-
-      
+      <div id="footer">
+        <div>
+          <button class="btn show-btn" id="show-btn">Ro'yhat ko'rish</button>
+        </div>
+      </div>
+      <div id="container-1"></div>
+      <div id="images1"></div>
     </div>
 
     <!-- Modal -->
     <div class="modal hidden" id="modal">
       <!-- modal header -->
       <div class="modal-header">
-        <h5>✅</h5>
+        <a href="#" class="logo">EwEb</a>
+
         <button class="btn close-btn" id="close-btn">
           <i class="fas fa-close"></i>
         </button>

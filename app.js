@@ -43,9 +43,7 @@ const successElement = document.getElementById("success");
 
 async function checkImageExists(imageName) {
   try {
-    const response = await fetch(
-      `/server/rasmlar/${imageName}`
-    );
+    const response = await fetch(`/server/rasmlar/${imageName}`);
     if (!response.ok) {
       throw new Error("Image does not exist");
     }
@@ -85,19 +83,18 @@ form.addEventListener("submit", async (e) => {
   }
   const imageExists = await checkImageExists(image.name);
   if (imageExists) {
-    
     displayErrorMessage("Boshqa rasm yuboring, bu rasm allaqachon bazada bor");
-    setTimeout(()=>{
-      displayErrorMessage('')
-    },2500)
+    setTimeout(() => {
+      displayErrorMessage("");
+    }, 2500);
     removeHiddenn();
     return;
   }
   if (message.length > 15) {
     displayErrorMessage("Izoh 15 belgidan oshmasligi kerak");
-    setTimeout(()=>{
-      displayErrorMessage('')
-    },2500)
+    setTimeout(() => {
+      displayErrorMessage("");
+    }, 2500);
     removeHiddenn();
     return;
   }
@@ -114,8 +111,6 @@ form.addEventListener("submit", async (e) => {
     location.reload();
   });
 });
-
-
 
 async function sendFormData(formData) {
   try {
@@ -138,13 +133,11 @@ async function sendFormData(formData) {
   }
 }
 
-
 //full time elements
 const fullDay = document.getElementById("full-day");
 const hourEl = document.getElementById("hour");
 const minuteEl = document.getElementById("minute");
 const secondEl = document.getElementById("second");
-
 
 //function time-vaqt funksiyasi
 
@@ -191,3 +184,78 @@ function getTime() {
 
 setInterval(getTime, 1000);
 
+const apiURL = "https://openbudget.uz/api/v1/currency"; // API manzili
+
+fetch(apiURL)
+  .then((response) => response.json()) // JSON formatida javobni olish
+  .then((data) => {
+    console.log("API javobi:", data);
+    // Boshqa ishlashlar
+    const usd = data.currency.usd;
+    const eur = data.currency.eur;
+    const rub = data.currency.rub;
+
+    // Boshqa ishlashlar bilan xatolik yuz berdi
+    const container = document.getElementById("container");
+
+    const usdElement = document.createElement("div");
+    const eurElement = document.createElement("div");
+    const rubElement = document.createElement("div");
+
+    usdElement.innerHTML = `USD: ${usd} so'm`;
+    eurElement.innerHTML = `EUR: ${eur} so'm`;
+    rubElement.innerHTML = `RUB: ${rub} so'm`;
+    container.appendChild(usdElement);
+    container.appendChild(eurElement);
+    container.appendChild(rubElement);
+
+    console.log(usd);
+    console.log(eur);
+    console.log(rub);
+  })
+  .catch((error) => {
+    console.error("API bilan xatolik yuz berdi:", error);
+  });
+
+///////////////////////////////////////////////////////////////////////////////////////////
+
+async function fetchData(apiUrl) {
+  try {
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+    const container = document.getElementById("container-1");
+    const images1 = document.getElementById("images1")
+
+
+    // JSON ma'lumotlarni HTML-ga joylash
+    container.innerHTML = `
+        <p><strong>Viloyat nomi: </strong> ${data.region_title}</p>
+        <p><strong>Tuman nomi: </strong> ${data.district_title}</p>
+        <p><strong>Mahalla nomi: </strong> ${data.quarter_title}</p>
+        <p><strong>Kategoriyasi: </strong> ${data.category_title}</p>
+        <p><strong>Muallifning to'liq ismi: </strong> ${data.author_fullname}</p>
+        <p><strong>Tavsif: </strong> ${data.description}</p>
+        <p><strong>Bosqich: </strong> ${data.stage}</p>
+        <p><strong>Beriladigan miqdor: </strong> ${data.granted_amount}</p>
+        <p><strong>So'ralgan miqdor: </strong> ${data.requested_amount}</p>
+        <p><strong>Ovozlar soni: </strong> ${data.vote_count}</p>
+      `;
+    
+    
+    // Rasm elementlarini HTML-ga joylash
+    data.images.forEach((image) => {
+      const imgElement = document.createElement("img");
+      imgElement.src = `https://openbudget.uz/api/v2/info/file/${image}`;
+      images1.appendChild(imgElement);
+    });
+    populateTable(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+const API =
+  "https://openbudget.uz/api/v1/initiatives/a179ffe2-d6e8-4a02-b733-c745421992c1";
+fetchData(API);
+
+// HTML elementlarni tanlash
